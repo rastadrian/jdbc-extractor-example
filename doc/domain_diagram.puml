@@ -1,0 +1,30 @@
+@startuml
+skinparam object {
+
+    BorderColor #333333
+    BackgroundColor #eeeeee
+
+    ArrowColor #377bb5
+    ArrowFontColor #333333
+
+}
+
+object Employee
+Employee : Id : Integer
+
+object Shift
+Shift : Id : Integer
+Shift : Employee_Id : Integer
+
+object ShiftDetail
+ShiftDetail : Id : Integer
+
+object ShiftDetails
+ShiftDetails : Shift_Id : Integer
+ShiftDetails : ShiftDetail_Id : Integer
+
+Employee --> Shift
+Shift --> ShiftDetails
+ShiftDetail --> ShiftDetails
+
+@enduml
