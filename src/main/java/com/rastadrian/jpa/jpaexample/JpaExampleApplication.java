@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -42,11 +41,8 @@ public class JpaExampleApplication {
             Integer id = savedEmployee.getId();
 
             // fetch employee by id, but only fetch the shifts from 6 days ago
-            Optional<Employee> result = Optional.ofNullable(
-                    template.query(query, new EmployeeExtractor(), id, Date.valueOf(LocalDate.now().minusDays(6))));
-
-            result.ifPresentOrElse(printEmployeeDetails(),
-                    () -> log.warn("Couldn't find employee!"));
+            List<Employee> employees = template.query(this.query, new EmployeeExtractor(), id, Date.valueOf(LocalDate.now().minusDays(6)));
+            employees.forEach(printEmployeeDetails());
         };
     }
 
