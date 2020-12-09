@@ -27,7 +27,7 @@ public class JpaExampleApplication {
     private String query;
 
     @Bean
-    public CommandLineRunner runner(EmployeeRepository repository, JdbcTemplate template, EmployeeExtractor employeeExtractor) {
+    public CommandLineRunner runner(EmployeeRepository repository, JdbcTemplate template) {
         return args -> {
             // create shifts
             Shift oldShift = createShift(LocalDate.now().minusYears(1), "Old Shift"); // 1 year ago
@@ -43,7 +43,7 @@ public class JpaExampleApplication {
 
             // fetch employee by id, but only fetch the shifts from 6 days ago
             Optional<Employee> result = Optional.ofNullable(
-                    template.query(query, employeeExtractor, id, Date.valueOf(LocalDate.now().minusDays(6))));
+                    template.query(query, new EmployeeExtractor(), id, Date.valueOf(LocalDate.now().minusDays(6))));
 
             result.ifPresentOrElse(printEmployeeDetails(),
                     () -> log.warn("Couldn't find employee!"));

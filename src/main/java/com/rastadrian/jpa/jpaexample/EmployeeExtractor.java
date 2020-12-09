@@ -5,13 +5,11 @@ import com.rastadrian.jpa.jpaexample.model.Shift;
 import com.rastadrian.jpa.jpaexample.model.ShiftDetail;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@Component
 public class EmployeeExtractor implements ResultSetExtractor<Employee> {
 
     @Override
